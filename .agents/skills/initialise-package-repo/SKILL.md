@@ -7,7 +7,7 @@ description: >-
   .release-please-manifest.json to the starting package.json version, rewrites the
   package.json identity and infrastructure/repo-config.yaml from the repo's own
   facts, pulls the shared agent-skills set via npx skills add --copy (A-776), runs
-  the initialise-skills skill to generate every skill's config.json, and applies the
+  the rheged-skills-setup skill to generate every skill's config.json, and applies the
   GitHub settings "Use this template" does not copy (the npm-release environment,
   GO/NO GO required-check with road-runner-bot bypass, Trunk changelog bypass,
   enabling the Release workflow) —
@@ -21,7 +21,7 @@ compatibility: >-
   target repo — creating the environment and ruleset needs admin). Network access
   for `npx skills add` when pulling shared skills. Node.js ≥22 for the bundled
   scripts (Node built-ins only — no npm dependencies, no build step, no tsx).
-  Wraps the `initialise-skills` skill — install it alongside this one; its
+  Wraps the `rheged-skills-setup` skill — install it alongside this one; its
   Linear-facts step uses the Linear MCP server when present. Designed for a repo
   spawned from rheged-studio/npm-package-template; the GitHub-settings values
   (integration_id 15368, the npm-release environment, pkg-release.yml) are specific
@@ -42,7 +42,7 @@ so no one has to walk the manual generation checklist and silently miss a step.
 settings, and it copies files that must be _reset_ in the new repo. This skill owns
 both halves: the in-repo file edits (including a **pull of the shared skills** from
 `agent-skills` — A-776) and the deterministic GitHub settings, wrapping the
-existing `initialise-skills` skill so per-package setup and per-skill `config.json`
+existing `rheged-skills-setup` skill so per-package setup and per-skill `config.json`
 generation happen together. It is **dry-run first** and **idempotent** — the
 preview shows every pending change, writes happen only after you confirm, and a
 re-run with nothing left to do is a clean no-op.
@@ -78,7 +78,7 @@ re-run with nothing left to do is a clean no-op.
   preserving comments and quoting.
 - **Pull the shared skills** — `npx skills add` from
   `rheged-studio/agent-skills` for the locked set (`changelog`, `cleanup-repo`,
-  `commit`, `initialise-skills`, `linear-sync`, `preflight`, `release-status`,
+  `commit`, `rheged-skills-setup`, `linear-sync`, `preflight`, `release-status`,
   `send-it`, `triage-pr`) into both Claude Code and Cursor trees
   (`--agent claude-code --agent cursor --copy`). Does **not** overwrite this
   scaffolder.
@@ -104,7 +104,7 @@ re-run with nothing left to do is a clean no-op.
   `Protect main trunk` ruleset.
 - **Enable the Release workflow** (`pkg-release.yml`, disabled on the template).
 
-**Wrapped:** the **`initialise-skills`** skill, to generate each skill's
+**Wrapped:** the **`rheged-skills-setup`** skill, to generate each skill's
 `config.json` from the corrected repo facts — run **after** the skills pull and
 the skill-config gitignore strip so configs match the pulled bundle versions and
 are left trackable for the consumer to commit (A-812).
@@ -157,7 +157,7 @@ and prints exact next steps):
    `npx skills add … --copy` for the locked shared set. Needs network. Confirm
    `ops.files.skillsPull.status` is `pulled` before continuing.
 
-5. **Generate the skill configs.** Run the **`initialise-skills`** skill
+5. **Generate the skill configs.** Run the **`rheged-skills-setup`** skill
    end-to-end (its own dry-run → confirm → write → idempotency flow, including the
    Linear-facts step via the Linear MCP). Do not reimplement it — invoke it. Must
    run **after** step 4 so configs match the just-pulled bundles and the
