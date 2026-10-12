@@ -41,6 +41,8 @@ After "Use this template", in the new repo:
    the new package, **re-seed `.release-please-manifest.json`** so `"."` matches the starting
    version (the #1 release-please failure mode), reset `changelog/`, **pull the shared skills**
    (`npx skills add … --copy`), and generate the skill configs (all automated by the skill).
+   The skill also adapts the inherited [`GLOSSARY.md`](GLOSSARY.md) (new header, template-only
+   terms stripped); add the repo's own domain terms afterwards.
    **Replace `src/` by hand** with the package's real API. Full steps in
    [`CLAUDE.md`](CLAUDE.md#repo).
 2. Apply the [repo-level settings](#repo-level-settings) (rulesets are not copied).
