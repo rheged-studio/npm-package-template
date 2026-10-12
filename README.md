@@ -29,7 +29,7 @@ After "Use this template", in the new repo:
 
 > **Run the `initialise-package-repo` skill first.** It automates the setup half of steps 1–3 and
 > 6's Release-enable (in-repo file edits, **shared-skills pull** via `npx skills add … --copy`,
-> `initialise-skills`, the ruleset + `npm-release` environment, and `gh workflow enable Release`),
+> `rheged-skills-setup`, the ruleset + `npm-release` environment, and `gh workflow enable Release`),
 > all idempotent and dry-run-first, and verifies-and-reports steps 4–5 and the npm-OIDC bootstrap.
 > **Authoring the real `src/` API stays manual** — the skill never touches `src/`. The numbered
 > steps below are the reference for what it does — walk them by hand only if you're not using the

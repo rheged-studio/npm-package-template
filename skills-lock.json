@@ -91,12 +91,6 @@
       "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
       "computedHash": "ac2c94885f34ff8492dc12aa4543182f661f32ea1722b8d6b6c2c7045af33ae3"
     },
-    "initialise-skills": {
-      "source": "rheged-studio/agent-skills",
-      "sourceType": "github",
-      "skillPath": "skills/initialise-skills/SKILL.md",
-      "computedHash": "1bfba796ffd7841214c0292827d17345c9fae04e4d4028ec77afa23c0107089f"
-    },
     "linear-sync": {
       "source": "rheged-studio/agent-skills",
       "sourceType": "github",
@@ -132,12 +126,6 @@
       "sourceType": "github",
       "skillPath": "skills/engineering/research/SKILL.md",
       "computedHash": "c8c1cba327a6f824b554cd978079a3dadd7406d73174f8fb9bfef58824691970"
-    },
-    "resolving-merge-conflicts": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "skillPath": "skills/engineering/resolving-merge-conflicts/SKILL.md",
-      "computedHash": "63b2dcadbe9124caeb3448f1378286fe18dcefb2494f60e136831b8b4986ca27"
     },
     "retro": {
       "source": "mattpocock/skills",
