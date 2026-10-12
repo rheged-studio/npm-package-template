@@ -27,7 +27,7 @@ compatibility: >-
   (integration_id 15368, the npm-release environment, pkg-release.yml) are specific
   to that template's release shell.
 metadata:
-  version: 0.4.2
+  version: 0.5.0
   author: Rob Easthope
 allowed-tools: Read, Bash(node:*), Bash(git:*), Bash(gh:*), Bash(pnpm:*), Bash(npx:*), mcp__linear-server__list_teams, mcp__linear-server__get_team
 ---
@@ -76,6 +76,12 @@ re-run with nothing left to do is a clean no-op.
   dependency/script shell, and never `src/`.
 - **Reconcile `infrastructure/repo-config.yaml`** — `npmScope` and `defaultBranch`,
   preserving comments and quoting.
+- **Adapt the inherited `GLOSSARY.md`** (A-2441) — rewrite its
+  `<!-- init:context -->` header to `# <repo>` plus the repo description, and strip
+  the `<!-- init:template-only -->` block (the spawn / placeholder-identity terms
+  that only make sense in the template). Inherited release-shell terms are kept
+  untouched. Idempotent: the markers are consumed, so a second pass is a no-op;
+  absent when the repo has no `GLOSSARY.md`.
 - **Pull the shared skills** — `npx skills add` from
   `rheged-studio/agent-skills` for the locked set (`changelog`, `cleanup-repo`,
   `commit`, `rheged-skills-setup`, `linear-sync`, `preflight`, `pr`,
@@ -142,7 +148,7 @@ and prints exact next steps):
 
 3. **Present the diff and confirm the file edits.** Show the dry-run report. Call
    out the changelog entries to be deleted, the manifest re-seed, the identity
-   rewrite, and the **pending shared-skills pull**. **This is the confirmation gate
+   rewrite, the **GLOSSARY.md adapt**, and the **pending shared-skills pull**. **This is the confirmation gate
    for the working-tree edits** — do not write before it.
 
 4. **Apply the file edits** (including the skills pull), piping the gathered facts
@@ -153,11 +159,23 @@ and prints exact next steps):
      | node .claude/skills/initialise-package-repo/scripts/initialise-package-repo.mjs --write --files-only --json
    ```
 
-   `--files-only` runs the changelog/manifest/identity/repo-config edits **and**
-   `npx skills add … --copy` for the locked shared set. Needs network. Confirm
+   `--files-only` runs the changelog/manifest/identity/glossary/repo-config edits
+   **and** `npx skills add … --copy` for the locked shared set. Needs network. Confirm
    `ops.files.skillsPull.status` is `pulled` before continuing.
 
-5. **Generate the skill configs.** Run the **`rheged-skills-setup`** skill
+5. **Review GLOSSARY.md as best you can.** The script only does the mechanical
+   adapt; the judgement is yours. Read the adapted `GLOSSARY.md` and:
+   - check each kept inherited term still applies to this repo, and drop any that
+     do not (for example a repo that does not use Clacks or the road-runner-bot);
+   - draft a few of the repo's own domain terms from the facts gathered in step 2
+     and its `README.md`, in the `domain-modeling` `GLOSSARY-FORMAT.md` style
+     (bold term, one-sentence definition, optional `_Avoid_`);
+   - show the user the diff and confirm before writing;
+   - if there is too little to go on (a freshly spawned, empty repo), leave the file
+     as adapted and rely on the manual reminder;
+   - never reintroduce the template-only terms.
+
+6. **Generate the skill configs.** Run the **`rheged-skills-setup`** skill
    end-to-end (its own dry-run → confirm → write → idempotency flow, including the
    Linear-facts step via the Linear MCP). Do not reimplement it — invoke it. Must
    run **after** step 4 so configs match the just-pulled bundles and the
@@ -166,7 +184,7 @@ and prints exact next steps):
    files are **committed** in the consumer (agent-skills contract) — they are no
    longer gitignored after step 4.
 
-6. **Confirm and apply the GitHub settings.** These need repo-admin and change
+7. **Confirm and apply the GitHub settings.** These need repo-admin and change
    server-side state, so confirm separately, then:
 
    ```bash
@@ -177,13 +195,14 @@ and prints exact next steps):
    present (env + main policy, a same-named ruleset, Trunk bypass present, an
    already-active workflow).
 
-7. **Report the manual next steps.** Surface the `reminders` from the report — the
+8. **Report the manual next steps.** Surface the `reminders` from the report — the
    `src/` API, orchestrator onboarding (matrix registration only), Claude review
-   prerequisites, and the npm OIDC bootstrap + first publish — each cross-linking
+   prerequisites, the npm OIDC bootstrap + first publish, and extending
+   `GLOSSARY.md` with the repo's own terms — each cross-linking
    its `README.md#setup` subsection. The repo is not "done" until these are
    handled.
 
-8. **Confirm idempotency.** Re-run the dry run; every file/GitHub op should now
+9. **Confirm idempotency.** Re-run the dry run; every file/GitHub op should now
    report `unchanged` / `present` / `already-customised` (apart from the manual
    steps). The skills pull still reports `pending` on dry-run (it does not probe
    lock hashes) — a second `--write` re-pulls safely.
@@ -210,8 +229,9 @@ and prints exact next steps):
 - **Idempotent.** Every op probes current state and no-ops when already done: the
   changelog reset is clean once only `README.md` remains; the manifest re-seed is a
   no-op when `"."` already matches; the identity rewrite is skipped once the name is
-  no longer the placeholder; the environment/ruleset/workflow calls skip when
-  already present. The skills pull is safe to re-run (`skills add --copy`
+  no longer the placeholder; the GLOSSARY.md adapt is clean once its markers are
+  gone (and never re-adds the template-only block); the environment/ruleset/workflow
+  calls skip when already present. The skills pull is safe to re-run (`skills add --copy`
   refreshes in place) and never overwrites this scaffolder.
 - **Never touches `src/`.** Replacing the placeholder API is the author's job —
   reported, not automated.

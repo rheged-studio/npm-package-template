@@ -17,6 +17,7 @@
 // GitHub repo) so the SKILL.md layer can prompt for `gh auth login` distinctly.
 
 import { resetChangelog } from "./lib/changelog-reset.mjs";
+import { adaptGlossary } from "./lib/glossary.mjs";
 import { applyGithubSettings } from "./lib/github-settings.mjs";
 import { reconcileManifest } from "./lib/manifest.mjs";
 import { reconcilePackageIdentity } from "./lib/package-identity.mjs";
@@ -125,6 +126,9 @@ function runFileEdits(root, identity, write) {
       packageJsonPath: join(root, "package.json"),
       write,
     }),
+    // Rewrite the inherited GLOSSARY.md's context header and drop its
+    // template-only terms (A-2441).
+    glossary: adaptGlossary(root, identity, write),
     repoConfig: reconcileRepoConfig({
       facts: {
         defaultBranch: identity.defaultBranch,
