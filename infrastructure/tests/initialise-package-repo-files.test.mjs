@@ -144,9 +144,7 @@ describe("deriveIdentity + applyIdentity", () => {
   });
 
   it("recognises the placeholder name as the not-yet-renamed signal", () => {
-    expect(isPlaceholderName("@rheged-studio/npm-package-template")).toBe(
-      true,
-    );
+    expect(isPlaceholderName("@rheged-studio/npm-package-template")).toBe(true);
     expect(isPlaceholderName("@rheged-studio/portcullis")).toBe(false);
   });
 });
@@ -199,7 +197,7 @@ describe("planSkillConfigIgnoreStrip", () => {
       "",
       "# Template-seed only (A-812): keep resolved skill config.json out of the tree",
       '# copied by "Use this template". initialise-package-repo strips these lines in a',
-      "# spawned consumer so initialise-skills can write trackable configs that the",
+      "# spawned consumer so rheged-skills-setup can write trackable configs that the",
       "# consumer commits (agent-skills consumer contract). Do not copy this ignore into",
       "# a hand-rolled consumer — resolved config.json belongs in git there.",
       ".claude/skills/*/config.json",
