@@ -12,7 +12,7 @@ co_authors: []
 category: chore
 breaking: false
 issues:
-  - A-2078
+  - R-2078
 affected_packages:
   - infrastructure
 stats:
@@ -23,7 +23,7 @@ stats:
 
 ## Changed
 
-**Surgical skills fan-out from agent-skills `main` ([A-2078](https://linear.app/rheged-studio/issue/A-2078))**
+**Surgical skills fan-out from agent-skills `main` ([R-2078](https://linear.app/rheged-studio/issue/R-2078))**
 
 - Re-vendor `send-it` 0.9.1 and `commit` 0.2.0 on `.claude` and `.agents` mirrors via `skills add --copy`
-- Restore per-skill `config.json` after copy ([A-706](https://linear.app/rheged-studio/issue/A-706)); leave `triage-pr` untouched
+- Restore per-skill `config.json` after copy ([R-706](https://linear.app/rheged-studio/issue/R-706)); leave `triage-pr` untouched

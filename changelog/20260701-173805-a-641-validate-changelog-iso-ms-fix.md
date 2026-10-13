@@ -11,7 +11,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: fix
 breaking: false
-issues: ["A-641"]
+issues: ["R-641"]
 stats:
   files_changed:
   loc_added:

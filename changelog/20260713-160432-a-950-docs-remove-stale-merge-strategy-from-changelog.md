@@ -10,7 +10,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: docs
 breaking: false
-issues: ["A-950"]
+issues: ["R-950"]
 stats:
   files_changed:
   loc_added:
@@ -21,7 +21,7 @@ stats:
 
 - Removed the `merge_strategy` field from the frontmatter schema block in
   `changelog/README.md`. The Simple changelog project dropped `merge_strategy`
-  from the changelog contract ([A-802](https://linear.app/rheged-studio/issue/A-802))
+  from the changelog contract ([R-802](https://linear.app/rheged-studio/issue/R-802))
   and the in-repo `changelog-core` model no longer records it, so the documented
   schema no longer advertises a field that repos scaffolded from this template
-  would otherwise inherit as stale ([A-950](https://linear.app/rheged-studio/issue/A-950)).
+  would otherwise inherit as stale ([R-950](https://linear.app/rheged-studio/issue/R-950)).

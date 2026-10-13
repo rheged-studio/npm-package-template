@@ -11,7 +11,7 @@ co_authors: []
 category: chore
 breaking: false
 issues:
-  - A-1348
+  - R-1348
 stats:
   files_changed:
   loc_added:
@@ -21,7 +21,7 @@ stats:
 
 ## Changed
 
-**Bump @acme-skunkworks packages and fix markdownlint 3.x fallout ([A-1348](https://linear.app/rheged-studio/issue/A-1348))**
+**Bump @acme-skunkworks packages and fix markdownlint 3.x fallout ([R-1348](https://linear.app/rheged-studio/issue/R-1348))**
 
 - Raise `@acme-skunkworks/markdownlint-config` to `^3.0.0`, `eslint-config` to `^1.1.3`, `changelog-core` to `^1.1.1`, and `commitlint-config` to `^1.0.1`
 - Exclude vendored `.claude/skills/**` and `.agents/skills/**` from markdownlint (config ignores, `lint:md` globs, and CI `markdown-globs`)

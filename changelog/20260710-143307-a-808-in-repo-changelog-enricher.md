@@ -11,7 +11,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: feature
 breaking: false
-issues: ["A-808"]
+issues: ["R-808"]
 stats:
   files_changed:
   loc_added:
@@ -21,10 +21,10 @@ stats:
 ## Added
 
 - **`@acme-skunkworks/changelog-core`** as a devDependency, with `validate:changelog` and
-  CI completeness pointing at `pnpm exec changelog-core …` ([A-808](https://linear.app/rheged-studio/issue/A-808)).
+  CI completeness pointing at `pnpm exec changelog-core …` ([R-808](https://linear.app/rheged-studio/issue/R-808)).
 - A **`changelog-enrich`** sibling job in `pkg-release.yml` calling
   `reusable-changelog-enrich.yml` (`mode: finalise`, pin `a87a5ba`) so post-merge
-  metadata and version stamps land in-repo via road-runner-bot (ADR 0004 / [A-821](https://linear.app/rheged-studio/issue/A-821)).
+  metadata and version stamps land in-repo via road-runner-bot (ADR 0004 / [R-821](https://linear.app/rheged-studio/issue/R-821)).
 - **`ensureTrunkChangelogBypass`** in `initialise-package-repo` — creates or updates the
   repo-level Trunk ruleset with the road-runner-bot bypass so newly scaffolded packages
   inherit enricher write-back from birth.

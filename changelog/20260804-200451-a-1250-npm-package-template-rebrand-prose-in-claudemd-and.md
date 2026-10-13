@@ -10,7 +10,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: docs
 breaking: false
-issues: ["A-1250"]
+issues: ["R-1250"]
 stats:
   files_changed:
   loc_added:
@@ -21,5 +21,5 @@ stats:
 ## Changed
 
 - Replaced **Acme Skunkworks** / **ACME Skunkworks** with **Rheged Studio** in
-  human-facing prose in `CLAUDE.md` and `README.md` ([A-1250](https://linear.app/rheged-studio/issue/A-1250)).
+  human-facing prose in `CLAUDE.md` and `README.md` ([R-1250](https://linear.app/rheged-studio/issue/R-1250)).
   Left `@acme-skunkworks/*` package identifiers and GitHub org/repo paths unchanged.
