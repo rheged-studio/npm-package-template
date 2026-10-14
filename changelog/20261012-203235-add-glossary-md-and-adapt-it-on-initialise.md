@@ -11,7 +11,7 @@ co_authors: []
 category: feature
 breaking: false
 issues:
-  - A-2441
+  - R-2441
 stats:
   files_changed:
   loc_added:

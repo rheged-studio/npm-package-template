@@ -11,7 +11,7 @@ co_authors: []
 category: chore
 breaking: false
 issues:
-  - A-1239
+  - R-1239
 stats:
   files_changed:
   loc_added:
@@ -21,4 +21,4 @@ stats:
 
 ## Changed
 
-**Linear identity ([A-1239](https://linear.app/rheged-studio/issue/A-1239))** — point root `config.json` `linearWorkspaceSlug` at `rheged-studio`, regenerate local skill configs (gitignored in this template) with `linearTeamName: Rheged Studio` / `linearWorkspaceSlug: rheged-studio` via `initialise --set` on both mirrors, and rewrite stale `linear.app/acme-skunkworks` URLs across changelog entries.
+**Linear identity ([R-1239](https://linear.app/rheged-studio/issue/R-1239))** — point root `config.json` `linearWorkspaceSlug` at `rheged-studio`, regenerate local skill configs (gitignored in this template) with `linearTeamName: Rheged Studio` / `linearWorkspaceSlug: rheged-studio` via `initialise --set` on both mirrors, and rewrite stale `linear.app/acme-skunkworks` URLs across changelog entries.

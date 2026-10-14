@@ -19,9 +19,9 @@ This repo is both the template and its own reference package. There are two audi
 > itself. This checklist is the single source of truth for the non-copied setup — `CLAUDE.md`'s
 > generation checklist links here rather than duplicating it.
 >
-> These settings were proven on the `eslint-config` testbed (A-311 / A-312 / A-313 / A-314) and
+> These settings were proven on the `eslint-config` testbed (R-311 / R-312 / R-313 / R-314) and
 > reconciled to the current estate (release-please, the `GO/NO GO` aggregator check-run, and shared
-> reusable CI callers — A-371 / A-413 / A-424 / A-447 / A-432).
+> reusable CI callers — R-371 / R-413 / R-424 / R-447 / R-432).
 
 ### Spawned-repo quick checklist
 
@@ -34,8 +34,8 @@ After "Use this template", in the new repo:
 > **Authoring the real `src/` API stays manual** — the skill never touches `src/`. The numbered
 > steps below are the reference for what it does — walk them by hand only if you're not using the
 > skill. See [`CLAUDE.md` → Agent skills](CLAUDE.md#agent-skills). Committed skill bundles from the
-> template are bootstrap only; the scaffolder refreshes them at pull-on-instantiation (A-776). This
-> template is not a skills-push-fan-out consumer (A-774).
+> template are bootstrap only; the scaffolder refreshes them at pull-on-instantiation (R-776). This
+> template is not a skills-push-fan-out consumer (R-774).
 
 1. **Per-package code edits** — rename `package.json`, point `infrastructure/repo-config.yaml` at
    the new package, **re-seed `.release-please-manifest.json`** so `"."` matches the starting
@@ -63,7 +63,7 @@ template"):
       spawned _package_ this is optional; leave it off unless the new repo is itself a template.
 - [ ] "Allow auto-merge" **on**; merge commits **and** squash merges allowed
       (feature PRs → merge commit; release-please + fan-out PRs → squash —
-      A-1176 / A-1177).
+      R-1176 / R-1177).
 - [ ] Secret scanning + push protection **on**.
 - [ ] npm OIDC Trusted Publishing configured (no `NPM_TOKEN` in CI — see
       [npm OIDC](#npm-oidc-trusted-publishing)).
@@ -78,21 +78,21 @@ stable required gate. Require it on `main` via a ruleset:
 - [ ] PR required before merging.
 - [ ] **0 required approvals.** ⚠️ A non-zero count blocks the orchestrator's own release-PR merge.
 - [ ] Required status check: **`GO/NO GO`** — **not** the retired `🔬 Build & Lint`. The caller
-      swap (A-447) replaced it with `lint / Lint` + `build-test / Build & Test`, and `GO/NO GO`
+      swap (R-447) replaced it with `lint / Lint` + `build-test / Build & Test`, and `GO/NO GO`
       aggregates them all.
 - [ ] Ruleset **pinned to the GitHub Actions integration** (`integration_id: 15368`), so nothing
       but this repo's Actions can satisfy it.
-- [ ] **road-runner-bot listed as a bypass actor** (A-1019). `pkg-release.yml`'s `changelog-enrich`
+- [ ] **road-runner-bot listed as a bypass actor** (R-1019). `pkg-release.yml`'s `changelog-enrich`
       job pushes `changelog/**` **directly to `main`** as `road-runner-bot[bot]` after each merge.
       Without the bypass, the required-check ruleset rejects that direct push (`GH013`). Human PRs
       still have to satisfy `GO/NO GO` as normal — the bypass is scoped to the bot actor only.
 
 The `Trunk` ruleset carries the **same** road-runner-bot bypass (integration `2195582`, an `always`
 bypass actor) for the pull-request / deletion / non-fast-forward rules, so the enrich push clears
-both rulesets (ADR 0004 / A-808). Org `Protect main trunk` stays no-bypass (deletion /
+both rulesets (ADR 0004 / R-808). Org `Protect main trunk` stays no-bypass (deletion /
 non-fast-forward only).
 
-Footguns (A-418):
+Footguns (R-418):
 
 - The gate must be a **check-run, not a commit status** — a commit status is forgeable by any
   push-scoped token; a check-run can only be minted by a GitHub App (the repo's own Actions run).
@@ -113,7 +113,7 @@ gh api -X POST repos/<owner>/<repo>/environments/npm-release/deployment-branch-p
 
 - [ ] Deployment-branch policy permits deployments **only from `refs/heads/main`**.
 - [ ] **No required reviewers** — releases stay hands-off; this is a structural ref gate, not a
-      manual approval (A-326).
+      manual approval (R-326).
 
 Without this environment the OIDC release jobs have nowhere to deploy from and the release fails.
 
@@ -122,26 +122,26 @@ Without this environment the OIDC release jobs have nowhere to deploy from and t
 Hands-off releases are driven by the **private** `rheged-studio/release-orchestrator` repo, which
 holds the bot key, runs `release-please release-pr`, and merges the release PR. Post-merge changelog
 enrichment runs in-repo via `pkg-release.yml`'s `changelog-enrich` job (`@rheged-studio/changelog-core`,
-A-808). Without onboarding, the repo never gets its automatic release PRs.
+R-808). Without onboarding, the repo never gets its automatic release PRs.
 
 The template already ships everything the orchestrator needs on the repo side — release-please
 config + manifest, `@rheged-studio/changelog-core`, `.nvmrc`, a publish-only `pkg-release.yml`
 (with the enricher caller), and `GO/NO GO` running on the `release-please--*` branch. And since
 2026-07-13 road-runner-bot is installed **org-wide** on every Rheged Studio repo, with its
 `ROADRUNNER_*` credentials provisioned at org level — the `ROADRUNNER_PRIVATE_KEY` secret granted
-to the config-estate repos, the `ROADRUNNER_CLIENT_ID` a non-sensitive org variable (A-945) — so
-the old per-repo "install the bot" and "grant `ROADRUNNER_*` selected access" (A-821) steps no
+to the config-estate repos, the `ROADRUNNER_CLIENT_ID` a non-sensitive org variable (R-945) — so
+the old per-repo "install the bot" and "grant `ROADRUNNER_*` selected access" (R-821) steps no
 longer apply. Onboarding now reduces to a single step:
 
-- [ ] **Add the repo to the orchestrator's `matrix.repo`** (A-648). Matrix registration is
+- [ ] **Add the repo to the orchestrator's `matrix.repo`** (R-648). Matrix registration is
       orchestrator config, not a bot install or permission grant, so it is the one step that
       remains per-repo.
 
 The required check the orchestrator waits on is **`GO/NO GO`** (the `🔬 Build & Lint` → `GO/NO GO`
-cutover completed via A-419 / A-596 / A-437), and the CI callers already run on `release-please--*`
+cutover completed via R-419 / R-596 / R-437), and the CI callers already run on `release-please--*`
 (no skip), so the changelog lane validates entries before the release PR merges.
 
-> The old A-309 "exclude `CHANGELOG.md` from markdown lint" step no longer applies: release-please
+> The old R-309 "exclude `CHANGELOG.md` from markdown lint" step no longer applies: release-please
 > runs with `skip-changelog`, so there is no root `CHANGELOG.md` — the dated `changelog/` directory
 > is the only changelog.
 
@@ -155,7 +155,7 @@ template":
    for a short-lived GitHub token, and that exchange only yields a token if the App is granted.
    Missing it, the action's internal `git fetch origin --depth=20 <branch>` runs unauthenticated
    and fails with `could not read Username` — so the review never runs **even after the secret is
-   added** (A-621 / A-636).
+   added** (R-621 / R-636).
 
 **Preferred: provision both org-wide, then just verify per repo.** Rather than repeat this on every
 spawned repo:
@@ -180,7 +180,7 @@ spawned repo:
 > **Security note on the org secret.** `CLAUDE_CODE_OAUTH_TOKEN` is an Anthropic API token — blast
 > radius is API usage / billing abuse, and it is rotatable. `ROADRUNNER_PRIVATE_KEY` is
 > org-compromise-grade and is now granted to the config-estate repos (each repo's in-repo
-> `changelog-enrich` job mints an App token from it via `secrets: inherit`, A-821) — so it is no
+> `changelog-enrich` job mints an App token from it via `secrets: inherit`, R-821) — so it is no
 > longer scoped to `release-orchestrator` alone. For **both** secrets the discipline is the same: an
 > "All repositories" org secret is readable by any workflow in any org repo, so **scope them to the
 > config-estate repos** (or all-private) rather than truly all — never "public repositories" — and
@@ -197,11 +197,11 @@ from publish #2.
       runbook is in [CLAUDE.md → "Bootstrap publish"](CLAUDE.md#bootstrap-publish--read-this-when-setting-up-a-new-package).
 - [ ] Create the annotated `v<initial>` git tag and matching GitHub release for the version just
       published (required — without it release-please has no baseline and may re-release the
-      initial feature set as a spurious bump; A-1019). Commands are in the Bootstrap publish runbook.
+      initial feature set as a spurious bump; R-1019). Commands are in the Bootstrap publish runbook.
 - [ ] Configure the Trusted Publisher at `https://www.npmjs.com/package/<name>/access` →
       GitHub Actions → org, repo, workflow filename `pkg-release.yml`, environment **blank**.
       (npm Trusted Publishing binds its OIDC subject to repository + workflow **filename**, so this
-      must be `pkg-release.yml` — the thin caller migrated from `release.yml` under A-639. Blank
+      must be `pkg-release.yml` — the thin caller migrated from `release.yml` under R-639. Blank
       accepts any environment in `pkg-release.yml`; the form also accepts `npm-release` to narrow the
       OIDC subject claim further. Blank is the verified default — see CLAUDE.md.)
 - [ ] Confirm publish #2 onwards flows through `pkg-release.yml` (OIDC, no token, no OTP) + provenance.
@@ -223,7 +223,7 @@ release identity across every repo; a spawned-package owner can skip this sectio
 
 - [ ] `ROADRUNNER_PRIVATE_KEY` (org **secret**) → **Selected repositories = the config-estate
       repos** (both `release-orchestrator` and every served package repo, since each repo's in-repo
-      `changelog-enrich` mints an App token from it via `secrets: inherit`, A-821). Never "all" /
+      `changelog-enrich` mints an App token from it via `secrets: inherit`, R-821). Never "all" /
       "public repositories". The App private key never expires and is org-compromise-grade, so keep
       the selection to the private/config-estate set — it must never be readable from an arbitrary
       public repo's CI.
@@ -232,7 +232,7 @@ release identity across every repo; a spawned-package owner can skip this sectio
       `2195582` hard-coded as the Trunk-bypass actor in `initialise-package-repo`.)
 - [ ] road-runner-bot App installed **org-wide** across the config-estate repos (the org-installed
       App's repository selection) with `contents: write` **+** `pull-requests: write` — so a
-      newly-generated repo inherits the install with no per-repo grant (A-945).
+      newly-generated repo inherits the install with no per-repo grant (R-945).
 - [ ] `CLAUDE_CODE_OAUTH_TOKEN` provisioned org-wide and the Claude GitHub App installed across the
       config-estate repos (see [Claude review prerequisites](#claude-review-prerequisites)).
 - [ ] Actions → "Allow GitHub Actions to create and approve pull requests" → **off**.

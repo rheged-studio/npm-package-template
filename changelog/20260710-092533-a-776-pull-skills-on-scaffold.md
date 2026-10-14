@@ -11,7 +11,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: feature
 breaking: false
-issues: ["A-776"]
+issues: ["R-776"]
 stats:
   files_changed:
   loc_added:
@@ -20,7 +20,7 @@ stats:
 
 ## Added
 
-- A **shared-skills pull** step in `initialise-package-repo` ([A-776](https://linear.app/rheged-studio/issue/A-776)): on `--write --files-only`
+- A **shared-skills pull** step in `initialise-package-repo` ([R-776](https://linear.app/rheged-studio/issue/R-776)): on `--write --files-only`
   it runs `npx skills add … --copy` for the locked set from `acme-skunkworks/agent-skills`
   into both Claude Code and Cursor trees, before `initialise-skills` generates configs.
   Dry-run reports `pending` with no network; the repo-local scaffolder is never in the pull
@@ -32,5 +32,5 @@ stats:
 
 - Documented pull-on-instantiation in the scaffolder SKILL/README (both mirrors), `CLAUDE.md`
   Template-propagation note, and the README spawned-repo checklist: committed skill bundles
-  remain bootstrap only; this template stays out of the skills push fan-out ([A-774](https://linear.app/rheged-studio/issue/A-774)). Stripping
-  committed bundles for a global install stays deferred to [A-790](https://linear.app/rheged-studio/issue/A-790) / [A-781](https://linear.app/rheged-studio/issue/A-781).
+  remain bootstrap only; this template stays out of the skills push fan-out ([R-774](https://linear.app/rheged-studio/issue/R-774)). Stripping
+  committed bundles for a global install stays deferred to [R-790](https://linear.app/rheged-studio/issue/R-790) / [R-781](https://linear.app/rheged-studio/issue/R-781).

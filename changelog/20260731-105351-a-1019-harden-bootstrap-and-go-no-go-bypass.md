@@ -11,7 +11,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: fix
 breaking: false
-issues: ["A-1019"]
+issues: ["R-1019"]
 stats:
   files_changed:
   loc_added:
@@ -23,7 +23,7 @@ stats:
 - `initialise-package-repo` now provisions the `Require GO/NO GO gate` ruleset **with**
   the road-runner-bot bypass (`2195582`), and create-or-updates an existing ruleset that
   lacks it — matching Trunk bypass parity so `changelog-enrich` write-back to `main`
-  is not rejected with `GH013` ([A-1019](https://linear.app/rheged-studio/issue/A-1019)).
+  is not rejected with `GH013` ([R-1019](https://linear.app/rheged-studio/issue/R-1019)).
 - Bootstrap publish runbook, README OIDC checklist, and init skill `MANUAL_REMINDERS`
   now require creating the `v<initial>` git tag + GitHub release after the first
   `release:manual` publish, so release-please has a clean baseline and does not

@@ -11,8 +11,8 @@ co_authors: []
 category: chore
 breaking: false
 issues:
-  - A-2654
-  - A-2775
+  - R-2654
+  - R-2775
 stats:
   files_changed:
   loc_added:

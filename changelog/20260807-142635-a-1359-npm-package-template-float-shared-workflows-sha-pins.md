@@ -12,7 +12,7 @@ co_authors: []
 category: chore
 breaking: false
 issues:
-  - A-1359
+  - R-1359
 stats:
   files_changed:
   loc_added:
@@ -21,7 +21,7 @@ stats:
 
 ## Changed
 
-**Float shared-workflows reusable workflow pins to @v1 ([A-1359](https://linear.app/rheged-studio/issue/A-1359))**
+**Float shared-workflows reusable workflow pins to @v1 ([R-1359](https://linear.app/rheged-studio/issue/R-1359))**
 
 - Point `validate-payload.yml` at `reusable-validate-payload.yml@v1` instead of a commit SHA
 - Point `pkg-release.yml` changelog-enrich job at `reusable-changelog-enrich.yml@v1` instead of a commit SHA

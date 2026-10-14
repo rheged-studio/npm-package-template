@@ -11,7 +11,7 @@ author: "rob@acmeskunkworks.io"
 co_authors: []
 category: docs
 breaking: false
-issues: ["A-324"]
+issues: ["R-324"]
 stats:
   files_changed:
   loc_added:
@@ -21,7 +21,7 @@ stats:
 ## Changed
 
 - Removed the "work in progress — not ready for use" warning from `README.md` now that
-  the GitHub Template flag is enabled on the repo ([A-324](https://linear.app/rheged-studio/issue/A-324)). The README now describes the
+  the GitHub Template flag is enabled on the repo ([R-324](https://linear.app/rheged-studio/issue/R-324)). The README now describes the
   repo as a live template and points at the generation checklist in `CLAUDE.md`. This is
-  the finisher for the [A-637](https://linear.app/rheged-studio/issue/A-637) second parity pass — the template is functionally ready and
+  the finisher for the [R-637](https://linear.app/rheged-studio/issue/R-637) second parity pass — the template is functionally ready and
   flipped on.
