@@ -104,7 +104,7 @@ The published `dist/` must contain **only** the compiled `src/`, but the TypeScr
 - **`tsconfig.tools.json`** — `noEmit`, `extends ./tsconfig.json`, covers `eslint.config.ts`, `infrastructure/tests/**`, `vitest.config.ts`. `pnpm tsc` runs it as a second pass to type-check the infra tests, the Vitest config, and the ESLint config. (`infrastructure/scripts/` is shell-only since R-808, so no tsconfig includes it.)
 - **`tsconfig.eslint.json`** — `noEmit`, the linter's project. Spans `src/**` + the infra `.ts`. `eslint.config.ts` pins `parserOptions.project` to it so the base preset's type-aware rules (`project: true`) resolve every linted file regardless of directory. Without this pin ESLint would fail with "file not found by the project service" on infra files (they aren't in the src-only `tsconfig.json`). The ESLint config itself is **not** in this project — the preset's global ignores exclude `eslint.config.ts` from linting, so it is type-checked only via `tsconfig.tools.json`.
 
-`extends` does **not** inherit `include`/`exclude` — only `compilerOptions` — so the two extra configs restate their own `include`/`exclude`.
+`extends` inherits `files`/`include`/`exclude` from the base config (resolved relative to the base) as well as its `compilerOptions`, but an extending config that sets its own `files`/`include`/`exclude` **replaces** the inherited value rather than merging with it ([TSConfig `extends`](https://www.typescriptlang.org/tsconfig#extends)). The two extra configs therefore set their own `include`/`exclude` to override `tsconfig.json`'s src-only file set; `compilerOptions` they leave unset still come from the base.
 
 ## Linting and formatting
 
