@@ -9,10 +9,5 @@
   },
   "exclude": ["dist", "node_modules"],
   "extends": "./tsconfig.json",
-  "include": [
-    "src/**/*.ts",
-    "infrastructure/scripts/**/*.ts",
-    "infrastructure/tests/**/*.ts",
-    "vitest.config.ts"
-  ]
+  "include": ["src/**/*.ts", "infrastructure/tests/**/*.ts", "vitest.config.ts"]
 }

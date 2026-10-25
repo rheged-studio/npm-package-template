@@ -11,7 +11,6 @@
   "extends": "./tsconfig.json",
   "include": [
     "eslint.config.ts",
-    "infrastructure/scripts/**/*.ts",
     "infrastructure/tests/**/*.ts",
     "vitest.config.ts"
   ]
